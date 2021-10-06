@@ -1,2 +1,2 @@
 # PagerView
-PagerView
+PagedView Sample application.
