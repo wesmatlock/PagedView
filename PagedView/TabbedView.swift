@@ -39,7 +39,7 @@ class TabbedView: UIView {
 
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     collectionView.backgroundColor = .white
-    collectionView.register(TabbedCollectionViewCell.self, forCellWithReuseIdentifier: "TabCollectionViewCell")
+    collectionView.register(TabCollectionViewCell.self, forCellWithReuseIdentifier: "TabCollectionViewCell")
     collectionView.delegate = self
     collectionView.dataSource = self
     collectionView.showsHorizontalScrollIndicator = false
@@ -73,6 +73,8 @@ class TabbedView: UIView {
     ])
   }
 
+  // MARK: - Actions
+
   func moveToTab(at index: Int) {
     collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: true)
     tabs[currentlySelectedIndex].onNotSelected()
@@ -80,10 +82,33 @@ class TabbedView: UIView {
     currentlySelectedIndex = index
   }
 }
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension TabbedView: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                      sizeForItemAt indexPath: IndexPath) -> CGSize {
 
+    switch sizeConfiguration {
+
+    case .fillEqually(height: let height, spacing: let spacing):
+      let totalWidth = frame.width
+      let widthPerItem = (totalWidth - (spacing * CGFloat(tabs.count + 1)) / CGFloat(tabs.count))
+      return CGSize(width: widthPerItem, height: height)
+
+    case .fixed(width: let width, height: let height, spacing: let spacing):
+      return CGSize(width: width - (spacing * 2), height: height)
+    }
+  }
+
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    switch sizeConfiguration {
+    case let .fillEqually(_, spacing), let .fixed(_, _, spacing):
+      return spacing
+    }
+  }
 }
+
+// MARK: - UICollectionViewDelegate
 
 extension TabbedView: UICollectionViewDelegate {
 
@@ -94,6 +119,7 @@ extension TabbedView: UICollectionViewDelegate {
 
 }
 
+// MARK: - UICollectionViewDataSource
 
 extension TabbedView: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -101,14 +127,9 @@ extension TabbedView: UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TabCollectionViewCell", for: indexPath) else { return UICollectionViewCell() }
-
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TabCollectionViewCell", for: indexPath) as? TabCollectionViewCell else { return UICollectionViewCell() }
 
     cell.view = tabs[indexPath.row]
     return cell
-
-    
   }
 }
-
-

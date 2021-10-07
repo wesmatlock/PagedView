@@ -54,6 +54,11 @@ class PagedView: UIView, UICollectionViewDelegateFlowLayout, UICollectionViewDat
     ])
   }
 
+  // MARK: - Actions
+
+  func moveToPage(as index: Int) {
+    collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: true)
+  }
 
   // MARK: - Data Source
 
@@ -70,9 +75,6 @@ class PagedView: UIView, UICollectionViewDelegateFlowLayout, UICollectionViewDat
     return cell
   }
 
-  func moveToPage(as index: Int) {
-    collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: true)
-  }
 
   // MARK: - Delegate
 
