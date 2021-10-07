@@ -84,17 +84,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6285BD8A270E149F00B7A37B /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				6285BD8B270E150D00B7A37B /* PagedView.swift */,
-				6285BD8D270E177900B7A37B /* PageCollectionViewCell.swift */,
-				6285BD8F270E310B00B7A37B /* TabbedView.swift */,
-				6285BD91270E33F300B7A37B /* TabbedCollectionViewCell.swift */,
-			);
-			path = Library;
-			sourceTree = "<group>";
-		};
 		62C4EF27270E0CE80008C08A = {
 			isa = PBXGroup;
 			children = (
@@ -118,7 +107,10 @@
 		62C4EF32270E0CE80008C08A /* PagedView */ = {
 			isa = PBXGroup;
 			children = (
-				6285BD8A270E149F00B7A37B /* Library */,
+				6285BD8B270E150D00B7A37B /* PagedView.swift */,
+				6285BD8D270E177900B7A37B /* PageCollectionViewCell.swift */,
+				6285BD8F270E310B00B7A37B /* TabbedView.swift */,
+				6285BD91270E33F300B7A37B /* TabbedCollectionViewCell.swift */,
 				62C4EF33270E0CE80008C08A /* AppDelegate.swift */,
 				62C4EF35270E0CE80008C08A /* SceneDelegate.swift */,
 				62C4EF37270E0CE80008C08A /* ViewController.swift */,
